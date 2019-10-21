@@ -2,6 +2,8 @@ import React, { Fragment}from 'react';
 import { Chat, Channel, withChannelContext,ChannelHeader, Thread, Window,withChatContext,ChannelList } from 'stream-chat-react';
 import { MessageList, MessageInput,MessageInputSmall } from 'stream-chat-react';
 import { StreamChat } from 'stream-chat';
+import { MessageLists } from "./MessageList";
+
 import CustomMessageInput from "./CustomMessageInput"
 import CustomChannelHeader from "./CustomChannelHeader"
 import 'stream-chat-react/dist/css/index.css';
@@ -39,7 +41,9 @@ const App = () => (
     <Channel channel={channel}>
     <div className="str-chat__main-panel" style={{ height: '600px' }}>
         <ContextAwareCustomChannelHeader />
-        <MessageList />
+            {/* <MessageList /> */}
+        <MessageLists />
+            
         <MessageInput
           Input={(props) => <CustomMessageInput props={props}/>}
         />
