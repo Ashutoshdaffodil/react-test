@@ -34,8 +34,9 @@ class MessageList extends Component {
       this.props.channel.sendReaction(data.id, reaction);
     }
   };
-  render() {
-    console.log("alll Props>>", this.props);
+  render()
+  {
+    
     const reactionsEmojis = defaultMinimalEmojis.reduce((acc, cur) => ({ ...acc, [cur.id]: cur }), {});
     let allMessages = [...this.props.messages];
     allMessages.sort(function(a, b) {
