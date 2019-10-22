@@ -113,7 +113,7 @@ button {
 }
 .chat_message_more {
   background-size: 25px 20px;
-  background-image: url("./Image/more.png");
+  background-image: url("./Image/delete.jpg");
 }
 .user-name {
   font-size: 15px;
