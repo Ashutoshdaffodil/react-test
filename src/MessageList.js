@@ -94,8 +94,8 @@ class MessageList extends Component {
                       {data.attachments &&
                         data.attachments.length > 0 &&
                         data.attachments.map(item => (
-                          <div style={{ width: "300px", height: "255px", marginTop: 10, marginBottom: 10 }}>
-                            <img src={item.image_url} style={{ width: "300px", height: "255px" }} />
+                          <div style={{ marginTop: 10, marginBottom: 10 }}>
+                            <img src={item.image_url} class="attached_photo" />
                           </div>
                         ))}
                       {data.latest_reactions && data.latest_reactions.length > 0 && (

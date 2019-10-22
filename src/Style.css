@@ -162,7 +162,7 @@ button {
   font-size: 13px;
   border-radius: 5px;
   border: 1px solid #d9d9d9;
-  padding: 0 10px 0 2px;
+  /* padding: 0 10px 0 2px; */
   margin-top: 9px;
   cursor: pointer;
   box-sizing: initial;
@@ -214,4 +214,15 @@ button {
   background: #f8f8f8;
   padding: 0 16px;
   position: relative;
+}
+.attached_photo {
+  max-width: 300px;
+  max-height: 250px;
+  border-radius: 6px;
+  border: 1px solid #cfcfcf;
+  margin: 10px 0;
+  display: block;
+  cursor: pointer;
+  object-fit: cover;
+  object-position: center;
 }
