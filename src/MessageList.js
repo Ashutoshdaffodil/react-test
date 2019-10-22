@@ -73,7 +73,7 @@ class MessageList extends Component {
               if (index != 0) {
                 filter_message = data["user"]["id"] === sorted_data[value][index - 1]["user"]["id"];
               }
-              return data.type != "deleted" ? (
+              return (
                 <div class="message_wrapper">
                   {!filter_message && (
                     <img src={data.user.image} style={{ width: 36, height: 36, overflow: "hidden" }} />
@@ -95,8 +95,8 @@ class MessageList extends Component {
                       {data.attachments &&
                         data.attachments.length > 0 &&
                         data.attachments.map(item => (
-                          <div style={{ width: "300px", height: "255px", marginTop: 10, marginBottom: 10 }}>
-                            <img src={item.image_url} style={{ width: "300px", height: "255px" }} />
+                          <div style={{ marginTop: 10, marginBottom: 10 }}>
+                            <img src={item.image_url} class="attached_photo" />
                           </div>
                         ))}
                       {data.latest_reactions && data.latest_reactions.length > 0 && (
@@ -155,8 +155,6 @@ class MessageList extends Component {
                     />
                   </div>
                 </div>
-              ) : (
-                void 0
               );
             })}
           </div>
