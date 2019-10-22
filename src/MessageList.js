@@ -156,7 +156,6 @@ class MessageList extends Component
                       )}
                     </div>
                   }
-
                   <div class="chat_message_more_actions">
                     <button
                       type="button"
@@ -173,12 +172,14 @@ class MessageList extends Component
                       name="button"
                       onClick={event => this.addReaction(event, data)}
                     />
-                    <button
-                      type="button"
-                      class="chat_message_more"
-                      name="button"
-                      onClick={event => this.deleteMessage(event, data)}
-                    />
+                    {this.props.client.userID === data.user.id && (
+                      <button
+                        type="button"
+                        class="chat_message_more"
+                        name="button"
+                        onClick={event => this.deleteMessage(event, data)}
+                      />
+                    )}
                   </div>
                 </div>
               );
