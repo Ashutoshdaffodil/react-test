@@ -36,6 +36,7 @@ chatClient.setUser(
       channel:chatClient.channel('messaging', 'godevs', {
         // image: 'https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png',
         name: 'Talk about Go',
+        threadOpen:false
       })
     }
    
@@ -47,11 +48,14 @@ chatClient.setUser(
       // const response = await channel.delete();
       
   }
-  
+   toggleThread = (value) =>
+   {
+     this.setState({threadOpen:value})
+    }
 
   render()
   {
-    let {channel}=this.state ;
+    let {channel,threadOpen}=this.state ;
     return (
       <div className="row" style={{ width: "100%",marginLeft:20 ,backgroundColor: "white" }}>
         <div style={{ width: "70%" }}>
@@ -60,7 +64,7 @@ chatClient.setUser(
               <div className="str-chat__main-panel" style={{ height: '600px' }}>
                 <ContextAwareCustomChannelHeader />
                 {/* <MessageList /> */}
-                <MessageLists />
+                <MessageLists toggleThread={this.toggleThread}/>
                 <MessageInput
                   Input={(props) => <CustomMessageInput props={props} />}
                 />
@@ -71,14 +75,14 @@ chatClient.setUser(
     
           </Chat>
         </div>
-        <div className="channel-list-container">
+        {!threadOpen && <div className="channel-list-container">
           <Chat client={chatClient} theme={'messaging light'}>
             <Channel channel={channel}>
-              <ChannelList options={{ state: true, limit: 8 , watch: true }} List={(props) => <MyContextAwareComponent props={props} setChannel={this.setChannel} />} />
+              <ChannelList options={{ state: true, limit: 8, watch: true }} List={(props) => <MyContextAwareComponent props={props} setChannel={this.setChannel} />} />
             </Channel>
           </Chat>
       
-        </div>
+        </div>}
       </div>
     )
   }

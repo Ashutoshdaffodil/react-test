@@ -5,47 +5,69 @@ import _ from "lodash";
 import { NimbleEmoji } from "emoji-mart";
 import { emojiSetDef, emojiData, defaultMinimalEmojis } from "./utils";
 import "./Style.css";
-class MessageList extends Component {
-  deleteMessage = async (event, data) => {
+import { isObject } from "lodash";
+class MessageList extends Component
+{
+  deleteMessage = async (event, data) =>
+  {
     event.preventDefault();
     let currentUser = this.props.client.userID;
-    if (currentUser === data.user.id) {
+    if (currentUser === data.user.id)
+    {
       let response = await this.props.client.deleteMessage(data.id);
       this.props.updateMessage(response.message);
-    } else {
+    } else
+    {
       console.log("Error Deleting message");
     }
   };
-  addReaction = async (event, data) => {
+  addReaction = async (event, data) =>
+  {
     event.preventDefault();
     let userExistingReaction = null;
     const currentUser = this.props.client.userID;
-    for (const reaction of data.own_reactions) {
-      if (currentUser === reaction.user.id && reaction.type === "wow") {
+    for (const reaction of data.own_reactions)
+    {
+      if (currentUser === reaction.user.id && reaction.type === "wow")
+      {
         userExistingReaction = reaction;
-      } else if (currentUser !== reaction.user.id) {
+      } else if (currentUser !== reaction.user.id)
+      {
         console.warn(`Message contained reactions from a different user`);
       }
     }
-    if (userExistingReaction) {
+    if (userExistingReaction)
+    {
       this.props.channel.deleteReaction(data.id, userExistingReaction.type);
-    } else {
+    } else
+    {
       const reaction = { type: "wow" };
       this.props.channel.sendReaction(data.id, reaction);
     }
   };
+  componentDidUpdate(prevProps)
+  {
+    // if(prevProps.thr)
+    if (prevProps.thread != this.props.thread)
+    {
+      this.props.toggleThread(isObject(this.props.thread));
+    }
+  }
   render()
   {
-    
+
     const reactionsEmojis = defaultMinimalEmojis.reduce((acc, cur) => ({ ...acc, [cur.id]: cur }), {});
     let allMessages = [...this.props.messages];
-    allMessages.sort(function(a, b) {
+    allMessages.sort(function (a, b)
+    {
       return a.created_at - b.created_at;
     });
-    let filtered_data = _.filter(allMessages, data => {
+    let filtered_data = _.filter(allMessages, data =>
+    {
       return data.type === "regular";
     });
-    let sorted_data = _.groupBy(filtered_data, data => {
+    let sorted_data = _.groupBy(filtered_data, data =>
+    {
       return Moment(data.created_at)
         .startOf("day")
         .format();
@@ -68,9 +90,11 @@ class MessageList extends Component {
               </p>
               <hr class="chat__date-separator-line" />
             </div>
-            {sorted_data[value].map((data, index) => {
+            {sorted_data[value].map((data, index) =>
+            {
               let filter_message = false;
-              if (index != 0) {
+              if (index != 0)
+              {
                 filter_message = data["user"]["id"] === sorted_data[value][index - 1]["user"]["id"];
               }
               return (
@@ -121,7 +145,8 @@ class MessageList extends Component {
                           </div>
                           <span class="replies_style">{data.reply_count} replies</span>
                           <p
-                            onClick={e => {
+                            onClick={e =>
+                            {
                               this.props.openThread(data, e);
                             }}
                           >
@@ -137,7 +162,8 @@ class MessageList extends Component {
                       type="button"
                       class="chat_message_reply"
                       name="button"
-                      onClick={e => {
+                      onClick={e =>
+                      {
                         this.props.openThread(data, e);
                       }}
                     />

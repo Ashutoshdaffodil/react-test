@@ -153,6 +153,9 @@ font-weight: bold;
   font-size:28;
   font-weight: bold;
 }
+.messaging.str-chat .str-chat__thread {
+z-index: 100;
+}
 /* .close-preview {
   position: "absolute";
    opacity: 0.5;

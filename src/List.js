@@ -1,4 +1,5 @@
 import React, { Component,Fragment } from 'react'
+import _ from "lodash"
 
 export default class List extends Component
 {
@@ -9,7 +10,8 @@ export default class List extends Component
   
     render()
     {
-        let { channels, activeChannel = { id: "" } } = this.props.props;
+        let { channels, activeChannel = { id: "" }, thread } = this.props.props;
+        console.log("propssssssssssssssss1",this.props)
         let { members, channel } = this.props;
         let { id } = channel.data;
         let arrayOfMembers = Object.entries(members).map((e) => (e[1]));
