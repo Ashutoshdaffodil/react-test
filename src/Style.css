@@ -58,6 +58,7 @@
   height: 26px;
   border-radius: 4px;
   margin-right: 10px;
+  overflow: hidden;
 }
 button {
   color: initial;

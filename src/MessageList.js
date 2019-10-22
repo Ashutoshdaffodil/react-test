@@ -72,7 +72,7 @@ class MessageList extends Component {
               if (index != 0) {
                 filter_message = data["user"]["id"] === sorted_data[value][index - 1]["user"]["id"];
               }
-              return data.type != "deleted" ? (
+              return (
                 <div class="message_wrapper">
                   {!filter_message && (
                     <img src={data.user.image} style={{ width: 36, height: 36, overflow: "hidden" }} />
@@ -154,8 +154,6 @@ class MessageList extends Component {
                     />
                   </div>
                 </div>
-              ) : (
-                void 0
               );
             })}
           </div>
