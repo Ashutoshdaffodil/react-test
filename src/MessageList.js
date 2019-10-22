@@ -2,12 +2,19 @@ import { withChannelContext } from "stream-chat-react";
 import React, { Component } from "react";
 import Moment from "moment";
 import _ from "lodash";
-import { NimbleEmoji } from "emoji-mart";
+import { NimbleEmoji,Picker } from "emoji-mart";
 import { emojiSetDef, emojiData, defaultMinimalEmojis } from "./utils";
 import "./Style.css";
 import { isObject } from "lodash";
 class MessageList extends Component
 {
+  constructor(props)
+  {
+    super(props)
+    this.state={
+      showPicker: false, currentPicker:null,data:null,event:null
+    }
+  }
   deleteMessage = async (event, data) =>
   {
     event.preventDefault();
@@ -21,10 +28,11 @@ class MessageList extends Component
       console.log("Error Deleting message");
     }
   };
-  addReaction = async (event, data) =>
+  pickerReaction = (name) =>
   {
-    event.preventDefault();
+    let data=this.state.data
     let userExistingReaction = null;
+
     const currentUser = this.props.client.userID;
     for (const reaction of data.own_reactions)
     {
@@ -44,6 +52,13 @@ class MessageList extends Component
       const reaction = { type: "wow" };
       this.props.channel.sendReaction(data.id, reaction);
     }
+  }
+  addReaction = async (event, data) =>
+  {
+    event.preventDefault();
+    this.setState({ showPicker: true,event,data })
+    
+  
   };
   componentDidUpdate(prevProps)
   {
@@ -73,7 +88,7 @@ class MessageList extends Component
         .format();
     });
     return (
-      <div style={{ flex: 1, backgroundColor: "white", overflow: "auto" }}>
+      <div style={{ flex: 1, backgroundColor: "white", overflow: "auto",position:"relative" }}>
         {Object.keys(sorted_data).map(value => (
           <div>
             <div class="date_seperater">
@@ -145,6 +160,7 @@ class MessageList extends Component
                           </div>
                           <span class="replies_style">{data.reply_count} replies</span>
                           <p
+                            style={{paddingTop:"10px"}}
                             onClick={e =>
                             {
                               this.props.openThread(data, e);
@@ -186,6 +202,16 @@ class MessageList extends Component
             })}
           </div>
         ))}
+        
+         {this.state.showPicker&&
+          <div style={{position:"absolute",right:0,bottom:0}}>
+          <Picker onSelect={(item) =>
+          { 
+            this.setState({showPicker:false})
+          this.pickerReaction(item.id)
+            }} />
+        </div>
+        }
       </div>
     );
   }

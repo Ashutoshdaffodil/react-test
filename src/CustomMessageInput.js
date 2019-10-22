@@ -53,6 +53,7 @@ export class CustomMessagingInput extends Component
     }
     onSelectEmoji = (item) =>
     {
+        console.log("itemmmmmmmmmm",item)
         this.setState({ text: this.state.text + item.native })
     }
     handleChange=(e)=>

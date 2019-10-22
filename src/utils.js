@@ -24,6 +24,15 @@ export const defaultMinimalEmojis = [
     ...emojiSetDef
   },
   {
+    id: "kissing_heart",
+    name: "kissing_heart",
+    colons: ":heart:",
+    sheet_x: 1,
+    sheet_y: 2,
+    ...commonEmoji,
+    ...emojiSetDef
+  },
+  {
     id: "like",
     name: "like",
     colons: ":+1:",
